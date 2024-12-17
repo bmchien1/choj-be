@@ -1,5 +1,5 @@
 {
-  "name": "auto-grader-hub-be",
+  "name": "choj",
   "version": "1.0.0",
   "scripts": {
     "dev": "bun run --watch src/index.ts",

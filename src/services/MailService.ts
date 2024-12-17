@@ -36,7 +36,7 @@ class MailService {
 			time: verificationCodeExpiresInMinutes
 		});
 		return await this.emailTransporter.sendMail({
-			from: 'binhtruong9422@gmail.com',
+			from: 'chienbui10052003@gmail.com',
 			to: email,
 			subject: "Reset Password Confirmation",
 			html: htmlToSend,
@@ -56,7 +56,7 @@ class MailService {
 			link: `${process.env.FRONTEND_URL}/verify-email?email=${email}`
 		});
 		return await this.emailTransporter.sendMail({
-			from: 'binhtruong9422@gmail.com',
+			from: 'chienbui10052003@gmail.com',
 			to: email,
 			subject: "Email Verification",
 			html: htmlToSend,
