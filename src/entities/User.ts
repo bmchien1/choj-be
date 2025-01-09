@@ -1,12 +1,17 @@
 import {
     Column,
     Entity,
+    OneToMany,
 } from "typeorm";
 import {AppRole} from "../types";
 import {BaseEntity} from "./Base/BaseEntity";
+import { Course } from "./Course";
 
 @Entity()
-class User extends BaseEntity {
+export class User extends BaseEntity {
+    @Column()
+    name!: string
+
     @Column()
     email!: string
 
@@ -19,36 +24,7 @@ class User extends BaseEntity {
         default: AppRole.USER
     })
     role!: AppRole
-    
-    @Column({
-        nullable: true
-    })
-    resetPasswordToken?: string | null
 
-    @Column({
-        default: false
-    })
-    isVerified!: boolean
-
-    @Column({
-        nullable: true
-    })
-    verificationToken?: string | null
-    
-    @Column({
-        default: 0,
-    })
-    totalScore!: number
-    
-    @Column({
-        default: 0,
-    })
-    totalSolved!: number
-    
-    public toApiResponse() {
-        const {password, resetPasswordToken, verificationToken, ...rest} = this
-        return rest
-    }
+    @OneToMany(() => Course, (course) => course.createdBy)
+    createdCourses!: Course[]
 }
-
-export default User
