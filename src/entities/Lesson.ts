@@ -1,19 +1,19 @@
-import { Entity, Column, ManyToOne, OneToMany } from "typeorm";
+import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 import { BaseEntity } from "./Base/BaseEntity";
 import { Course } from "./Course";
-import { Quiz } from "./Quiz";
 
 @Entity()
 export class Lesson extends BaseEntity {
+    @ManyToOne(() => Course)
+    @JoinColumn({ name: 'course_id' })
+    course!: Course;
+
     @Column()
-    title!: string
+    title!: string;
 
-    @Column('text')
-    content!: string
+    @Column({ type: 'text' })
+    description!: string;
 
-    @ManyToOne(() => Course, (course) => course.lessons)
-    course!: Course
-
-    @OneToMany(() => Quiz, (quiz) => quiz.lesson)
-    quizzes!: Quiz[]
+    @Column({ nullable: true })
+    file_url?: string;
 }

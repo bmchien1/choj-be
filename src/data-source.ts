@@ -1,35 +1,24 @@
-import "reflect-metadata"
-import {DataSource} from "typeorm"
-import {
-	Contest, JoinContestRequest,
-	Problem,
-	ProblemTag,
-	ProblemTestCase,
-	Submission,
-	SubmissionTestCase,
-	User,
-	UserContest,
-	UserProblem
-} from "./entities";
+import "reflect-metadata";
+import { DataSource } from "typeorm";
+import * as dotenv from "dotenv"; // Add dotenv import
+
+dotenv.config(); // Load environment variables
+const dbUrl = process.env.DATABASE_URL; // Check this
+
+import { User } from "./entities/User";
 
 export const AppDataSource = new DataSource({
-	//unit test can't load env
-	url: process.env.DATABASE_URL,
-	type: "postgres",
-	synchronize: true,
-	logging: false,
-	entities: [
-		User,
-		Contest,
-		Problem,
-		ProblemTag,
-		ProblemTestCase,
-		Submission,
-		UserContest,
-		UserProblem,
-		SubmissionTestCase,
-		JoinContestRequest,
-	],
-	migrations: [],
-	subscribers: [],
-})
+    type: "postgres",
+    url: process.env.DATABASE_URL,
+    synchronize: true, // Set to false in production
+    logging: true, // Consider disabling this in production to avoid performance impact
+    entities: [
+        User,
+    ],
+    migrations: [], // Ensure the migration folder path is correct
+    subscribers: [], // Include subscribers if used
+});
+
+AppDataSource.initialize()
+  .then(() => console.log("Database connected"))
+  .catch((err) => console.error("Database connection error:", err));

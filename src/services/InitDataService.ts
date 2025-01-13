@@ -1,18 +1,16 @@
-import {Contest, User} from "../entities";
+import {User} from "../entities/User";
 import {Repository} from "typeorm";
 import {AppDataSource} from "../data-source";
 import * as bcrypt from "bcrypt";
 import {AppRole, ContestStatus} from "../types";
-import {ContestService} from "./ContestService";
+// import {ContestService} from "./ContestService";
 
 class InitDataService {
 	private readonly userRepository: Repository<User>;
 	private static instance: InitDataService;
-	private readonly contestService: ContestService
 	
 	constructor() {
 		this.userRepository = AppDataSource.getRepository(User);
-		this.contestService = ContestService.getInstance();
 	}
 	
 	public static getInstance() {
@@ -23,7 +21,7 @@ class InitDataService {
 	}
 	
 	public async initAdminAccount() {
-		const email = process.env.ADMIN_EMAIL || 'binhtruong9418@gmail.com';
+		const email = process.env.ADMIN_EMAIL || 'chienbui@gmail.com';
 		const password = process.env.ADMIN_PASSWORD || 'Admin@1234';
 		
 		const adminExist = await this.userRepository.findOne({
@@ -50,22 +48,22 @@ class InitDataService {
 		console.log('Admin account created');
 	}
 
-	public async initPublicContest() {
-		const contestExist = await this.contestService.getAll({isPublic: 'true'});
+	// public async initPublicContest() {
+	// 	const contestExist = await this.contestService.getAll({isPublic: 'true'});
 
-		if(contestExist.contents.length > 0) {
-			console.log('Public contest already exists');
-			return;
-		}
+	// 	if(contestExist.contents.length > 0) {
+	// 		console.log('Public contest already exists');
+	// 		return;
+	// 	}
 
-		await this.contestService.create({
-			contestName: 'Public contest',
-			creator: 'Admin',
-			isPublic: true,
-			description: 'Public contest'
-		});
-		console.log('Public contest created');
-	}
+	// 	await this.contestService.create({
+	// 		contestName: 'Public contest',
+	// 		creator: 'Admin',
+	// 		isPublic: true,
+	// 		description: 'Public contest'
+	// 	});
+	// 	console.log('Public contest created');
+	// }
 }
 
 export default InitDataService;

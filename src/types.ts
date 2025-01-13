@@ -1,8 +1,8 @@
 export enum AppRole {
   USER = 'user',
+  TEACHER='teacher',
   ADMIN = 'admin',
 }
-
 
 export type Page<T> = {
   contents: T[],

@@ -31,64 +31,6 @@ const authPlugin = new Elysia()
 			password: t.String()
 		})
 	})
-	.post("/verify-email", async ({userService, body}) => {
-		return await userService.verifyEmail(body)
-	}, {
-		detail: {
-			tags: ['auth'],
-			summary: 'Verify email',
-		},
-		body: t.Object({
-			email: t.String(),
-			code: t.String()
-		})
-	})
-	.post("/resend-verification-email", async ({userService, body}) => {
-		return await userService.resendVerificationEmail(body)
-	}, {
-		detail: {
-			tags: ['auth'],
-			summary: 'Resend verification email',
-		},
-		body: t.Object({
-			email: t.String()
-		})
-	})
-	.post("/forgot-password", async ({userService, body}) => {
-		return await userService.forgotPassword(body)
-	}, {
-		detail: {
-			tags: ['auth'],
-			summary: 'Forgot password',
-		},
-		body: t.Object({
-			email: t.String()
-		})
-	})
-	.post("/reset-password", async ({userService, body}) => {
-		return await userService.resetPassword(body)
-	}, {
-		detail: {
-			tags: ['auth'],
-			summary: 'Reset password',
-		},
-		body: t.Object({
-			email: t.String(),
-			code: t.String(),
-			password: t.String()
-		})
-	})
-	.post("/resend-reset-password-email", async ({userService, body}) => {
-		return await userService.resendResetPasswordEmail(body)
-	}, {
-		detail: {
-			tags: ['auth'],
-			summary: 'Resend reset password email',
-		},
-		body: t.Object({
-			email: t.String()
-		})
-	})
 	.derive(isAuthenticated())
 	.post("/change-password", async ({userService, body, user}) => {
 		return await userService.changePassword(user, body)

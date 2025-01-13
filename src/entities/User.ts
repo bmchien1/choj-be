@@ -1,22 +1,14 @@
-import {
-    Column,
-    Entity,
-    OneToMany,
-} from "typeorm";
-import {AppRole} from "../types";
-import {BaseEntity} from "./Base/BaseEntity";
-import { Course } from "./Course";
+import { Entity, Column, OneToOne, JoinColumn, ManyToOne } from "typeorm";
+import { BaseEntity } from "./Base/BaseEntity";
+import { AppRole } from "../types";
 
 @Entity()
 export class User extends BaseEntity {
     @Column()
-    name!: string
+    email!: string;
 
     @Column()
-    email!: string
-
-    @Column()
-    password!: string
+    password!: string;
 
     @Column({
         type: 'enum',
@@ -25,6 +17,17 @@ export class User extends BaseEntity {
     })
     role!: AppRole
 
-    @OneToMany(() => Course, (course) => course.createdBy)
-    createdCourses!: Course[]
+    @Column({ nullable: true })
+    avatar_url?: string;
+
+    @Column({ nullable: true })
+    access_token?: string;
+
+    @Column({ nullable: true })
+    refresh_token?: string;
+
+    public toApiResponse() {
+        const {password, ...rest} = this
+        return rest
+    }
 }
