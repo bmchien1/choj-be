@@ -5,7 +5,9 @@ import * as dotenv from "dotenv"; // Add dotenv import
 dotenv.config(); // Load environment variables
 const dbUrl = process.env.DATABASE_URL; // Check this
 
-import { User } from "./entities/User";
+import { User} from "./entities/User";
+import { Course} from "./entities/Course";
+
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -14,6 +16,7 @@ export const AppDataSource = new DataSource({
     logging: true, // Consider disabling this in production to avoid performance impact
     entities: [
         User,
+        Course,
     ],
     migrations: [], // Ensure the migration folder path is correct
     subscribers: [], // Include subscribers if used

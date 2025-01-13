@@ -12,16 +12,27 @@ const coursePlugin = new Elysia()
           summary: 'Create a new course',
         },
         body: t.Object({
-          userId: t.Number(),
           name: t.String(),
           description: t.String(),
           class: t.String(),
-          image_url: t.Optional(t.String()),
-          subject: t.Optional(t.String({ default: 'Toán' })),
-          start_time: t.Optional(t.String()),
-          end_time: t.Optional(t.String()),
+        //   image_url: t.Optional(t.String()),
+        //   subject: t.Optional(t.String({ default: 'Toán' })),
+        //   start_time: t.Optional(t.String()),
+        //   end_time: t.Optional(t.String()),
         }),
       })
+    //   .get("/by-user", async ({ query }) => {
+    //     const { email } = query;
+    //     return await CourseService.getInstance().getCoursesByUser({ email });
+    //   }, {
+    //     detail: {
+    //       tags: ['course'],
+    //       summary: 'Get courses by user identifier (email or username)',
+    //     },
+    //     query: t.Object({
+    //       email: t.Optional(t.String()),
+    //     }),
+    //   })
       .get("/", async ({ query }) => {
         return await CourseService.getInstance().getAllCourses(query);
       }, {

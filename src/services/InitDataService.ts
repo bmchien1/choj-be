@@ -21,7 +21,7 @@ class InitDataService {
 	}
 	
 	public async initAdminAccount() {
-		const email = process.env.ADMIN_EMAIL || 'chienbui@gmail.com';
+		const email = process.env.ADMIN_EMAIL || 'minhnguyen@gmail.com';
 		const password = process.env.ADMIN_PASSWORD || 'Admin@1234';
 		
 		const adminExist = await this.userRepository.findOne({

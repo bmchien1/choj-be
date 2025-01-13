@@ -1,13 +1,16 @@
 import {Repository} from "typeorm";
 import {Course} from "../entities/Course";
+import { User } from "../entities/User";
 import {AppDataSource} from "../data-source";
 
 class CourseService {
   private readonly courseRepository: Repository<Course>;
+  // private readonly userRepository: Repository<User>;
   private static instance: CourseService;
 
   constructor() {
     this.courseRepository = AppDataSource.getRepository(Course);
+    // this.userRepository = AppDataSource.getRepository(User);
   }
 
   public static getInstance() {
@@ -17,12 +20,30 @@ class CourseService {
     return CourseService.instance;
   }
 
-  async createCourse(body: { name: string, description: string }) {
+  async createCourse(body: { name: string, description: string, class: string}) {
+    console.log(body);
+
     const course = new Course();
     course.name = body.name;
     course.description = body.description;
+    course.class = body.class;
+    console.log(course);
     return await this.courseRepository.save(course);
   }
+
+  // async getCoursesByUser(userIdentifier: { email?: string}) {
+  //   const user = await this.userRepository.findOneBy(userIdentifier);
+  //   if (!user) {
+  //     throw new Error("User not found");
+  //   }
+
+  //   const courses = await this.courseRepository.find({
+  //     where: { user: { id: user.id } },
+  //     relations: ["user"],
+  //   });
+
+  //   return courses;
+  // }
 
   async getCourseById(id: number) {
     const course = await this.courseRepository.findOneBy({id});

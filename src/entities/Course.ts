@@ -1,13 +1,9 @@
-import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, ManyToOne, JoinColumn, ManyToMany } from "typeorm";
 import { BaseEntity } from "./Base/BaseEntity";
 import { User } from "./User";
 
 @Entity()
 export class Course extends BaseEntity {
-    @ManyToOne(() => User)
-    @JoinColumn({ name: 'user_id' })
-    user!: User;
-
     @Column()
     name!: string;
 
