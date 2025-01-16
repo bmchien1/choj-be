@@ -6,11 +6,9 @@ import { Question } from "./Question";
 export class TrueFalseQuestion extends BaseEntity {
     @ManyToOne(() => Question)
     @JoinColumn({ name: 'question_id' })
-    question!: Question;
+    question_id!: Question;
 
     @Column({ type: 'json', nullable: true })
-    statements?: any;
+    choice!: any;
 
-    @Column()
-    correct_answer!: boolean;
 }

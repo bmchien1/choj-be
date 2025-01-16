@@ -21,7 +21,7 @@ class CourseService {
   }
 
   async createCourse(body: { name: string, description: string, class: string}) {
-    console.log(body);
+    // console.log(body);
 
     const course = new Course();
     course.name = body.name;

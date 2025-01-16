@@ -17,24 +17,26 @@ class TestService {
     return TestService.instance;
   }
 
-  async createTest(userId: number, testData: any) {
+  async createTest( testData: any) {
     const test = this.testRepository.create({
-      user: { id: userId },
       ...testData,
     });
     return await this.testRepository.save(test);
   }
 
-  async getAllTests(query: any) {
-    const { page = 0, limit = 10, userId } = query;
-    const [tests, total] = await this.testRepository.findAndCount({
-      where: userId ? { user: { id: userId } } : {},
-      skip: page * limit,
-      take: limit,
-      order: { createdAt: "DESC" },
-    });
-    return { tests, total, page, limit };
+  // async getAllTests(query: any) {
+  //   const { page = 0, limit = 10, userId } = query;
+  //   const [tests, total] = await this.testRepository.findAndCount({
+  //     skip: page * limit,
+  //     take: limit,
+  //     order: { createdAt: "DESC" },
+  //   });
+  //   return { tests, total, page, limit };
+  // }
+  async getAllTests(query: { page?: string | undefined; limit?: string | undefined; }) {
+    return await this.testRepository.find();
   }
+
 
   async getTestById(id: number) {
     const test = await this.testRepository.findOne({

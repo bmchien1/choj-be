@@ -2,26 +2,24 @@ import { Elysia, t } from "elysia";
 import { TestService } from "../services/TestService";
 
 const testPlugin = new Elysia()
-  .group("/tests", (group) =>
+  .group("/contest", (group) =>
     group
       .post("/", async ({ body }) => {
-        const { userId, ...testData } = body;
-        return await TestService.getInstance().createTest(userId, testData);
+        const {  ...testData } = body;
+        return await TestService.getInstance().createTest( testData);
       }, {
         detail: {
           tags: ['test'],
           summary: 'Create a new test',
         },
         body: t.Object({
-          userId: t.Number(),
           test_name: t.String(),
           description: t.String(),
           grade: t.String(),
-          createrId: t.Number(),
-          duration: t.String(),
-          start_time: t.Optional(t.String()),
-          end_time: t.Optional(t.String()),
-          questions_scores: t.Any(),
+          // duration: t.String(),
+          // start_time: t.Optional(t.String()),
+          // end_time: t.Optional(t.String()),
+          // questions_scores: t.Any(),
         }),
       })
       .get("/", async ({ query }) => {

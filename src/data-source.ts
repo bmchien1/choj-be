@@ -7,7 +7,12 @@ const dbUrl = process.env.DATABASE_URL; // Check this
 
 import { User} from "./entities/User";
 import { Course} from "./entities/Course";
-
+import { Test} from "./entities/Test";
+import { Question} from "./entities/Question";
+import { MultipleChoiceQuestion} from "./entities/MultipleChoiceQuestion";
+import { TrueFalseQuestion} from "./entities/TrueFalseQuestion";
+import { ShortAnswerQuestion} from "./entities/ShortAnswerQuestion";
+import { CodingQuestion} from "./entities/CodingQuestion";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -17,6 +22,12 @@ export const AppDataSource = new DataSource({
     entities: [
         User,
         Course,
+        Test,
+        Question,
+        MultipleChoiceQuestion,
+        TrueFalseQuestion,
+        ShortAnswerQuestion,
+        CodingQuestion,
     ],
     migrations: [], // Ensure the migration folder path is correct
     subscribers: [], // Include subscribers if used

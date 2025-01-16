@@ -1,15 +1,22 @@
 import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
 import { BaseEntity } from "./Base/BaseEntity";
-import { QuestionType } from "./QuestionType";
 
 @Entity()
 export class Question extends BaseEntity {
-    @ManyToOne(() => QuestionType)
-    @JoinColumn({ name: 'question_type_id' })
-    questionType!: QuestionType;
+    @Column()
+    questionName!: string;
 
-    @Column({ type: 'json' })
-    question!: any;
+    @Column()
+    questionType!: string;
+
+    @Column()
+    grade!: string;
+
+    @Column()
+    subject!: string;
+
+    @Column()
+    difficulty_level!: string;
 
     @Column({ nullable: true })
     question_image_url?: string;

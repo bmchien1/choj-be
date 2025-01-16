@@ -6,7 +6,7 @@ import { Question } from "./Question";
 export class CodingQuestion extends BaseEntity {
     @ManyToOne(() => Question)
     @JoinColumn({ name: 'question_id' })
-    question!: Question;
+    question_id!: Question;
 
     @Column({ type: 'text' })
     template_code!: string;

@@ -10,6 +10,7 @@ import {
 } from "./plugins";
 
 import InitDataService from "./services/InitDataService";
+import questionPlugin from "./plugins/question";
 
 AppDataSource.initialize().then(async () => {
 	console.log('Database connected to url ' + process.env.DATABASE_URL);
@@ -65,7 +66,7 @@ const app = new Elysia()
 		.use(assignmentPlugin)
 		.use(lessonPlugin)
 		.use(testPlugin)
-		// .use(userProblemPlugin)
+		.use(questionPlugin)
 		// .use(submissionPlugin)
 		// .use(languagePlugin)
 		// .use(joinContestRequestPlugin)
