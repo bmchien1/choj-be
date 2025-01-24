@@ -1,9 +1,15 @@
-import { Entity, Column, ManyToOne, JoinColumn, ManyToMany } from "typeorm";
+import { Entity, Column, ManyToOne, JoinColumn, ManyToMany, OneToMany } from "typeorm";
 import { BaseEntity } from "./Base/BaseEntity";
 import { User } from "./User";
+import { Assignment } from "./Assignment";
+type RelationWrapper<T> = T;
 
 @Entity()
 export class Course extends BaseEntity {
+    @ManyToOne(() => User)
+    @JoinColumn({ name: "user_id" })
+    creator!: User; 
+
     @Column()
     name!: string;
 
@@ -13,15 +19,10 @@ export class Course extends BaseEntity {
     @Column()
     class!: string;
 
-    @Column({ nullable: true })
-    image_url?: string;
-
     @Column({ default: 'Toán' })
     subject!: string;
 
-    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
-    start_time!: Date;
-
-    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP + INTERVAL '12 WEEK'" })
-    end_time!: Date;
+    @OneToMany(() => Assignment, assignment => assignment.course)
+    testCases!: RelationWrapper<Assignment[]>
+    
 }

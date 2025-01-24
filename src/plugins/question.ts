@@ -5,6 +5,7 @@ const questionPlugin = new Elysia()
   .group("/questions", (group) =>
     group
       .post("/", async ({ body }) => {
+        console.log(body);
         return await QuestionService.getInstance().createQuestion(body);
       }, {
         detail: {
@@ -17,6 +18,8 @@ const questionPlugin = new Elysia()
           grade: t.String(),
           subject: t.String(),
           difficulty_level: t.String(),
+          cpuTimeLimit:t.Optional(t.String()),
+          memoryLimit:t.Optional(t.String()),
           choices: t.Optional(t.Array(
             t.Object({
               choice: t.String(),
@@ -53,7 +56,7 @@ const questionPlugin = new Elysia()
           summary: "Get question by ID",
         },
         params: t.Object({
-          id: t.Number(),
+          id: t.Numeric(),
         }),
       })
       .put("/:id", async ({ params, body }) => {
@@ -96,7 +99,7 @@ const questionPlugin = new Elysia()
           summary: "Delete question by ID",
         },
         params: t.Object({
-          id: t.Number(),
+          id: t.Numeric(),
         }),
       })
   );

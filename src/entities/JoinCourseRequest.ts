@@ -4,15 +4,15 @@ import { Course } from "./Course";
 import { User } from "./User";
 
 @Entity()
-export class Student extends BaseEntity {
-    @ManyToOne(() => Course)
-    @JoinColumn({ name: 'courses_id' })
-    course!: Course;
-
+export class JoinCourseRequest extends BaseEntity {
     @ManyToOne(() => User)
     @JoinColumn({ name: 'user_id' })
     user!: User;
 
-    @Column({ type: 'enum', enum: ['pending', 'approved', 'audited'], default: 'pending' })
-    status!: 'pending' | 'approved' | 'audited';
+    @ManyToOne(() => Course)
+    @JoinColumn({ name: 'course_id' })
+    course!: Course;
+
+    @Column({ default: false })
+    approved: boolean = false;  // Indicates if the request is approved
 }

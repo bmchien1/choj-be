@@ -6,7 +6,7 @@ import responseMiddleware from "./middlewares/responseMiddleware";
 import errorMiddleware from "./middlewares/errorMiddleware";
 import {jwt} from '@elysiajs/jwt'
 import {
-	authPlugin,assignmentPlugin,coursePlugin,lessonPlugin, testPlugin
+	authPlugin,coursePlugin, testPlugin, joinPlugin, submissionPlugin, userInCoursePlugin
 } from "./plugins";
 
 import InitDataService from "./services/InitDataService";
@@ -63,10 +63,11 @@ const app = new Elysia()
 		group
 		.use(authPlugin)
 		.use(coursePlugin)
-		.use(assignmentPlugin)
-		.use(lessonPlugin)
 		.use(testPlugin)
 		.use(questionPlugin)
+		.use(joinPlugin)
+		.use(submissionPlugin)
+		.use(userInCoursePlugin)
 		// .use(submissionPlugin)
 		// .use(languagePlugin)
 		// .use(joinContestRequestPlugin)

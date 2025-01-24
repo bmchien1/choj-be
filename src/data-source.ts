@@ -13,6 +13,16 @@ import { MultipleChoiceQuestion} from "./entities/MultipleChoiceQuestion";
 import { TrueFalseQuestion} from "./entities/TrueFalseQuestion";
 import { ShortAnswerQuestion} from "./entities/ShortAnswerQuestion";
 import { CodingQuestion} from "./entities/CodingQuestion";
+import { Lesson} from "./entities/Lesson";
+import { Assignment} from "./entities/Assignment";
+import { JoinCourseRequest} from "./entities/JoinCourseRequest";
+import { UserInCourse} from "./entities/UserInCourse";
+import { Submission} from "./entities/Submission";
+import { TestCase} from "./entities/TestCase";
+
+
+// import { CodingQuestion} from "./entities/CodingQuestion";
+
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -27,7 +37,7 @@ export const AppDataSource = new DataSource({
         MultipleChoiceQuestion,
         TrueFalseQuestion,
         ShortAnswerQuestion,
-        CodingQuestion,
+        CodingQuestion,Lesson,Assignment,JoinCourseRequest,UserInCourse,Submission, TestCase
     ],
     migrations: [], // Ensure the migration folder path is correct
     subscribers: [], // Include subscribers if used

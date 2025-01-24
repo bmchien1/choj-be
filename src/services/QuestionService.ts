@@ -38,7 +38,9 @@ class QuestionService {
       subject: commonData.subject,
       difficulty_level: commonData.difficulty_level,
     });
-  
+    // console.log(baseQuestion)
+    // console.log(body)
+
     // Save the base Question record
     const savedQuestion = await this.questionRepository.save(baseQuestion);
     let createdQuestion;
@@ -85,10 +87,54 @@ class QuestionService {
   }
 
   async getQuestionById(id: number) {
-    return await this.questionRepository.findOne({
-      where: { id },
-      relations: ["choices", "testCases"], // Include relations for complex types
-    });
+    // Fetch the base question
+    const question = await this.questionRepository.findOne({ where: { id } });
+  
+    if (!question) {
+      throw new Error("Question not found");
+    }
+  
+    let detailedQuestion;
+  
+    // Fetch additional data based on question type
+    switch (question.questionType) {
+      case "multiple-choice":
+        detailedQuestion = await this.multipleChoiceRepository.findOne({
+          where: { question_id: { id } },
+        });
+        break;
+  
+      case "short-answer":
+        detailedQuestion = await this.shortAnswerRepository.findOne({
+          where: { question_id: { id } },
+        });
+        break;
+  
+      case "true-false":
+        detailedQuestion = await this.trueFalseRepository.findOne({
+          where: { question_id: { id } },
+        });
+        break;
+  
+      case "coding":
+        detailedQuestion = await this.codingRepository.findOne({
+          where: { question_id: { id } },
+        });
+        break;
+  
+      default:
+        throw new Error("Unsupported question type");
+    }
+  
+    if (!detailedQuestion) {
+      throw new Error(`Details for question type '${question.questionType}' not found`);
+    }
+  
+    // Combine the base question and the type-specific details
+    return {
+      ...question,
+      details: detailedQuestion,
+    };
   }
 
   async getAllQuestions(query: { page?: string | undefined; limit?: string | undefined; }) {

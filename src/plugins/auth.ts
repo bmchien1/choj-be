@@ -48,6 +48,7 @@ const authPlugin = new Elysia()
 		})
 	})
 	.get("/me", async ({user}) => {
+		// console.log(user);
 		return user.toApiResponse()
 	}, {
 		detail: {

@@ -1,12 +1,13 @@
-import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, ManyToOne, JoinColumn, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { BaseEntity } from "./Base/BaseEntity";
 import { Course } from "./Course";
+import { Question } from "./Question";
 
 @Entity()
 export class Assignment extends BaseEntity {
     @ManyToOne(() => Course)
-    @JoinColumn({ name: 'courses_id' })
-    course!: Course;
+    @JoinColumn({ name: 'course_id' })
+    course!: any;
 
     @Column()
     title!: string;
@@ -14,15 +15,19 @@ export class Assignment extends BaseEntity {
     @Column({ type: 'text' })
     description!: string;
 
-    @Column({ type: 'time' })
-    duration!: string;
+    // @Column({ type: 'json', nullable: true })
+    // questions?: any;
 
-    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP" })
-    start_time!: Date;
+    @Column({nullable: true})
+    duration?: Number;
 
-    @Column({ type: 'timestamp', default: () => "CURRENT_TIMESTAMP + INTERVAL '12 WEEK'" })
-    end_time!: Date;
+    @Column({ type: 'json', nullable: true })
+    questions?: any;
 
     @Column({ type: 'json', nullable: true })
     questions_scores?: any;
+
+    @Column()
+    total_points?: Number;
 }
+                                                                                                                                                                                             

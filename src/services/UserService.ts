@@ -41,7 +41,11 @@ class UserService {
 
   async login(body: { email: string, password: string }, jwt: any) {
     const emailToLower = body.email.toLowerCase();
-    const user = await this.userRepository.findOneBy({email: emailToLower});
+    const user = await this.userRepository.findOneBy({email: emailToLower});    
+    console.log(user?.password)
+
+    console.log(emailToLower)
+    console.log(body.password)
     if (!user) {
       throw new Error('User not found')
     }

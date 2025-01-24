@@ -5,8 +5,8 @@ import { Course } from "./Course";
 @Entity()
 export class Lesson extends BaseEntity {
     @ManyToOne(() => Course)
-    @JoinColumn({ name: 'course_id' })
-    course!: Course;
+    @JoinColumn({ name: "course_id" })
+    course!: Course; 
 
     @Column()
     title!: string;

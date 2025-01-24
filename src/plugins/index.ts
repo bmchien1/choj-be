@@ -1,8 +1,10 @@
 export {default as authPlugin} from './auth'
 export {default as coursePlugin} from './course'
-export {default as assignmentPlugin} from './assignment'
-export {default as lessonPlugin} from './lesson'
 export {default as testPlugin} from './test'
+export {default as joinPlugin} from './join'
+export {default as submissionPlugin} from './submission'
+export {default as userInCoursePlugin} from './userInCourse'
+
 // export {default as userProblemPlugin} from './userProblem'
 // export {default as submissionPlugin} from './submission'
 // export {default as languagePlugin} from './language'

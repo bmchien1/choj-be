@@ -1,13 +1,13 @@
-import { Entity, Column, OneToOne, JoinColumn, ManyToOne } from "typeorm";
+import { Entity, Column, OneToOne, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { BaseEntity } from "./Base/BaseEntity";
 import { AppRole } from "../types";
 
 @Entity()
 export class User extends BaseEntity {
-    @Column()
+    @Column() 
     email!: string;
 
-    @Column()
+    @Column() 
     password!: string;
 
     @Column({
